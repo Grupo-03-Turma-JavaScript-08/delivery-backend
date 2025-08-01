@@ -1,3 +1,4 @@
+import { Type } from "class-transformer";
 import { IsBoolean, IsDate, IsNotEmpty, IsNumber } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
@@ -17,6 +18,7 @@ export class Produto {
     preco: number;
 
     @IsDate()
+    @Type(() => Date)
     @Column({ type: 'date', nullable: true })
     validade: Date;
 
