@@ -1,6 +1,28 @@
-import { Controller } from "@nestjs/common";
- //CODIFICAO produto get, post, put, delete
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post } from "@nestjs/common";
+import { ProdutoService } from "../services/produto.service";
+import { Produto } from "../entities/produto.entity";
+
 @Controller("/produtos")
 export class ProdutoController {
+    constructor(private readonly produtoService: ProdutoService) { }
 
+    //Listar todos os produtos
+    @Get()
+    @HttpCode(HttpStatus.OK)
+    findAll(): Promise<Produto[]> {
+        return this.produtoService.findAll();
+    }
+
+    //Buscar produtos por Id
+    @Get('/:id')
+    @HttpCode(HttpStatus.OK)
+    findById(@Param('id', ParseIntPipe) id: number): Promise<Produto> {
+        return this.produtoService.findById(id);
+    }
+
+    @Post()
+    @HttpCode(HttpStatus.CREATED)
+    create(@Body()produto: Produto): Promise<Produto>{
+        return this.produtoService.create(produto);
+    }
 }

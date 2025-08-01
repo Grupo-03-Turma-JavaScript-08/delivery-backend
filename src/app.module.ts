@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Produto } from './produto/entities/produto.entity';
+import { ProdutoModule } from './produto/produto.module';
 
 @Module({
   imports: [
@@ -7,13 +9,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'seu username',
-      password: 'sua senha',
-      database: 'db_nome da tabela',
-      entities: [],
+      username: 'root',
+      password: 'root',
+      database: 'db_delivery',
+      entities: [Produto],
       synchronize: true,
       logging: true,
     }),
+    ProdutoModule
   ],
   controllers: [],
   providers: [],
