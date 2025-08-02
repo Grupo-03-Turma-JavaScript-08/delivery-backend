@@ -1,6 +1,7 @@
 import { Type } from "class-transformer";
 import { IsBoolean, IsDate, IsNotEmpty, IsNumber } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import { Categoria } from "../../categoria/entities/categoria.entity";
 
 
 @Entity({ name: "tb_produtos" })
@@ -25,4 +26,10 @@ export class Produto {
     @IsBoolean()
     @Column({ default: true })
     disponibilidade: boolean;
+
+    @ManyToOne(() => Categoria, (categoria) => categoria.produto, {
+        onDelete: "CASCADE"
+    })
+    @JoinColumn({name: 'categoria_id'})
+    categoria: Categoria;
 }
