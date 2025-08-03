@@ -6,20 +6,23 @@ import { Produto } from "../entities/produto.entity";
 export class ProdutoController {
     constructor(private readonly produtoService: ProdutoService) { }
 
-    //Listar todos os produtos
     @Get()
     @HttpCode(HttpStatus.OK)
     findAll(): Promise<Produto[]> {
         return this.produtoService.findAll();
     }
 
-    //Buscar produtos por Id
     @Get('/:id')
     @HttpCode(HttpStatus.OK)
     findById(@Param('id', ParseIntPipe) id: number): Promise<Produto> {
         return this.produtoService.findById(id);
     }
 
+    @Get('/recomendados/saudaveis')
+    @HttpCode(HttpStatus.OK)
+    recomendarProdutosSaudaveis(): Promise<Produto[]> {
+    return this.produtoService.recomendarProdutosSaudaveis();
+    }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
@@ -38,5 +41,4 @@ export class ProdutoController {
     delete(@Param('id', ParseIntPipe) id: number) {
         return this.produtoService.delete(id);
     }
-
 }
