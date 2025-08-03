@@ -8,14 +8,16 @@ Este projeto foi construído como parte do aprendizado em desenvolvimento backen
 
 ## 🧑‍🤝‍🧑 Equipe Chef Online
 
-| Nome           | Função        |
-| -------------- | ------------- |
-| Maeli Palharini         | Developer     |
-| Luis Bispo          | Developer     |
-| Dayse Santos          | Developer     |
-| Miguel         | Developer     |
-| Vitor Nazareth          | Product Owner |
-| Leticia Betman | Tester        |
+
+| Nome            | Função        |
+| --------------- | ------------- |
+| Dayse Santos    | Developer     |
+| Luis Bispo      | Developer     |
+| Maeli Palharini | Developer     |
+| Miguel          | Developer     |
+| Vitor Nazareth  | Product Owner |
+| Leticia Betman  | Tester        |
+
 
 
 ## 🚀 Funcionalidades
