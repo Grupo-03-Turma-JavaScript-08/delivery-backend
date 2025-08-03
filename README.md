@@ -14,7 +14,7 @@ Este projeto foi construído como parte do aprendizado em desenvolvimento backen
 | Dayse Santos    | Developer     |
 | Luis Bispo      | Developer     |
 | Maeli Palharini | Developer     |
-| Miguel          | Developer     |
+| Miguel Junior          | Developer     |
 | Vitor Nazareth  | Product Owner |
 | Leticia Betman  | Tester        |
 
