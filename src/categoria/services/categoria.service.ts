@@ -8,7 +8,7 @@ export class CategoriaService {
   constructor(
     @InjectRepository(Categoria)
     private categoriaRepository: Repository<Categoria>,
-  ) {}
+  ) { }
 
   async findAll(): Promise<Categoria[]> {
     return await this.categoriaRepository.find({
@@ -29,23 +29,32 @@ export class CategoriaService {
     });
 
     if (!categoria)
-      throw new HttpException(
-        'Categoria não encontrado!',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException('Categoria não encontrado!', HttpStatus.NOT_FOUND,);
 
     return categoria;
   }
 
+
   async findAllByDescricao(descricao: string): Promise<Categoria[]> {
-    return await this.categoriaRepository.find({
+    if (!descricao) {
+      throw new HttpException('Descrição não informada!', HttpStatus.BAD_REQUEST);
+    }
+
+    const categorias = await this.categoriaRepository.find({
       where: {
-        descricao: ILike(`%${descricao}%`),
+        descricao: ILike(`%${descricao}%`)
       },
+
       relations: {
         produto: true,
       },
     });
+
+    if (categorias.length === 0) {
+      throw new HttpException('Nenhuma categoria encontrada com essa descrição!', HttpStatus.NOT_FOUND);
+    }
+
+    return categorias;
   }
 
   async create(Categoria: Categoria): Promise<Categoria> {
