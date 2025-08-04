@@ -21,7 +21,7 @@ export class ProdutoController {
     @Get('/recomendados/saudaveis')
     @HttpCode(HttpStatus.OK)
     recomendarProdutosSaudaveis(): Promise<Produto[]> {
-    return this.produtoService.recomendarProdutosSaudaveis();
+        return this.produtoService.recomendarProdutosSaudaveis();
     }
 
     @Post()
@@ -31,7 +31,7 @@ export class ProdutoController {
     }
 
     @Put()
-    @HttpCode(HttpStatus.CREATED)
+    @HttpCode(HttpStatus.OK)
     update(@Body() produto: Produto): Promise<Produto> {
         return this.produtoService.update(produto);
     }
