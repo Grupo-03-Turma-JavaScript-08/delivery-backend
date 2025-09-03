@@ -36,4 +36,7 @@ export class Produto {
   })
   @JoinColumn({ name: 'categoria_id' })
   categoria: Categoria;
+
+  @Column({ default: false })
+  saudavel: boolean;
 }

@@ -29,7 +29,10 @@ export class CategoriaService {
     });
 
     if (!categoria)
-      throw new HttpException('Categoria não encontrado!', HttpStatus.NOT_FOUND,);
+      throw new HttpException(
+        'Categoria não encontrado!',
+        HttpStatus.NOT_FOUND,
+      );
 
     return categoria;
   }
@@ -37,7 +40,10 @@ export class CategoriaService {
 
   async findAllByDescricao(descricao: string): Promise<Categoria[]> {
     if (!descricao) {
-      throw new HttpException('Descrição não informada!', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Descrição não informada!',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     const categorias = await this.categoriaRepository.find({
@@ -51,7 +57,10 @@ export class CategoriaService {
     });
 
     if (categorias.length === 0) {
-      throw new HttpException('Nenhuma categoria encontrada com essa descrição!', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        'Nenhuma categoria encontrada com essa descrição!',
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     return categorias;

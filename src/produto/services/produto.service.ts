@@ -36,13 +36,12 @@ export class ProdutoService {
     return produto;
   }
 
-  async recomendarProdutosSaudaveis(): Promise<Produto[]> {
-    const categoriasSaudaveis = [6, 7, 8, 9, 10, 11];
-    return await this.produtoRepository.find({
-      where: {
-        categoria: { id: In(categoriasSaudaveis) },
+  async listarSaudaveis(): Promise<Produto[]> {
+    return this.produtoRepository.find({
+      where: { saudavel: true },
+      relations: {
+        categoria: true,
       },
-      relations: { categoria: true },
     });
   }
 

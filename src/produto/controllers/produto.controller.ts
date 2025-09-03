@@ -1,44 +1,55 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, Query } from "@nestjs/common";
-import { ProdutoService } from "../services/produto.service";
-import { Produto } from "../entities/produto.entity";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
+import { ProdutoService } from '../services/produto.service';
+import { Produto } from '../entities/produto.entity';
 
-@Controller("/produtos")
+@Controller('/produtos')
 export class ProdutoController {
-    constructor(private readonly produtoService: ProdutoService) { }
+  constructor(private readonly produtoService: ProdutoService) {}
 
-    @Get()
-    @HttpCode(HttpStatus.OK)
-    findAll(): Promise<Produto[]> {
-        return this.produtoService.findAll();
-    }
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  findAll(): Promise<Produto[]> {
+    return this.produtoService.findAll();
+  }
 
-    @Get('/:id')
-    @HttpCode(HttpStatus.OK)
-    findById(@Param('id', ParseIntPipe) id: number): Promise<Produto> {
-        return this.produtoService.findById(id);
-    }
+  @Get('/saudaveis')
+  async getSaudaveis(): Promise<Produto[]> {
+    return this.produtoService.listarSaudaveis();
+  }
 
-    @Get('/recomendados/saudaveis')
-    @HttpCode(HttpStatus.OK)
-    recomendarProdutosSaudaveis(): Promise<Produto[]> {
-        return this.produtoService.recomendarProdutosSaudaveis();
-    }
+  @Get('/:id')
+  @HttpCode(HttpStatus.OK)
+  findById(@Param('id', ParseIntPipe) id: number): Promise<Produto> {
+    return this.produtoService.findById(id);
+  }
 
-    @Post()
-    @HttpCode(HttpStatus.CREATED)
-    create(@Body() produto: Produto): Promise<Produto> {
-        return this.produtoService.create(produto);
-    }
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  create(@Body() produto: Produto): Promise<Produto> {
+    return this.produtoService.create(produto);
+  }
 
-    @Put()
-    @HttpCode(HttpStatus.OK)
-    update(@Body() produto: Produto): Promise<Produto> {
-        return this.produtoService.update(produto);
-    }
+  @Put()
+  @HttpCode(HttpStatus.OK)
+  update(@Body() produto: Produto): Promise<Produto> {
+    return this.produtoService.update(produto);
+  }
 
-    @Delete('/:id')
-    @HttpCode(HttpStatus.NO_CONTENT)
-    delete(@Param('id', ParseIntPipe) id: number) {
-        return this.produtoService.delete(id);
-    }
+  @Delete('/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.produtoService.delete(id);
+  }
 }
