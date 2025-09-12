@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Produto } from '../entities/produto.entity';
 import { DeleteResult, ILike, Repository, In } from 'typeorm';
 import { CategoriaService } from '../../categoria/services/categoria.service';
+import { ProdutoDto } from '../dto/produto.dto';
+import { Categoria } from './../../categoria/entities/categoria.entity';
 
 @Injectable()
 export class ProdutoService {
@@ -45,10 +47,26 @@ export class ProdutoService {
     });
   }
 
-  async create(produto: Produto): Promise<Produto> {
-    await this.categoriaService.findById(produto.categoria.id);
-    return await this.produtoRepository.save(produto);
+  async create(produtoDto: ProdutoDto): Promise<Produto> {
+  // tenta achar categoria pela descrição
+  let categoria = await this.categoriaService.findAllByDescricao(produtoDto.categoria);
+
+  if (!categoria || categoria.length === 0) {
+    // cria uma nova categoria se não existir
+    const novaCategoria = new Categoria();
+    novaCategoria.descricao = produtoDto.categoria; // ✅ usa a descrição recebida
+    categoria = [await this.categoriaService.create(novaCategoria)];
   }
+
+  // cria entidade produto
+  const produto = this.produtoRepository.create({
+    ...produtoDto,
+    categoria: categoria[0], // ✅ atribui categoria encontrada/criada
+  });
+
+  return await this.produtoRepository.save(produto);
+}
+
 
   async update(produto: Produto): Promise<Produto> {
     await this.findById(produto.id);

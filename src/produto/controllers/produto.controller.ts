@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { ProdutoService } from '../services/produto.service';
 import { Produto } from '../entities/produto.entity';
+import { ProdutoDto } from '../dto/produto.dto';
 
 @Controller('/produtos')
 export class ProdutoController {
@@ -37,7 +38,7 @@ export class ProdutoController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() produto: Produto): Promise<Produto> {
+  create(@Body() produto: ProdutoDto): Promise<Produto> {
     return this.produtoService.create(produto);
   }
 

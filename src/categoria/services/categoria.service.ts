@@ -56,13 +56,6 @@ export class CategoriaService {
       },
     });
 
-    if (categorias.length === 0) {
-      throw new HttpException(
-        'Nenhuma categoria encontrada com essa descrição!',
-        HttpStatus.NOT_FOUND,
-      );
-    }
-
     return categorias;
   }
 

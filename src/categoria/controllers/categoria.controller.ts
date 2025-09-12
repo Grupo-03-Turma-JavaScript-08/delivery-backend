@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpException,
   HttpStatus,
   Param,
   ParseIntPipe,
@@ -31,9 +32,20 @@ export class CategoriaController {
 
   @Get('/descricao/:descricao')
   @HttpCode(HttpStatus.OK)
-  findAllByDescricao(@Param('descricao') descricao: string,): Promise<Categoria[]> {
-    return this.categoriaService.findAllByDescricao(descricao);
+  async findAllByDescricao(@Param('descricao') descricao: string,): Promise<Categoria[]> {
+    const categoria = await this.categoriaService.findAllByDescricao(descricao);
+
+    if (categoria.length === 0) {
+      throw new HttpException(
+        'Nenhuma categoria encontrada com essa descrição!',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    
+    return categoria
   }
+
+  
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
